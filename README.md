@@ -1,5 +1,5 @@
 # CPSC350_SP21_ASSIGNMENT3_REZVANI
-Full Name: Romtin Rezvani\
+Full Name: Romtin Rezvani and Seth Adkins\
 Student ID: 2341841\
 Chapman Email: rrezvani@chapman.edu\
 Course Number: CPSC-350-02\
