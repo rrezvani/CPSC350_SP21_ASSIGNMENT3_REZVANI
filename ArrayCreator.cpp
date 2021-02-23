@@ -59,14 +59,12 @@ void ArrayCreator::DetermineStartingLocations() {
       else {
         myArray[i][j] = '-';
       }
-      CurrentGen[i][j] = j;
     }
   }
   for (int i = 0; i < rows; i++)
   {
       for (int j = 0; j < columns; j++) {
-        //cout << myArray[i][j] << endl;
-        cout << myArray[i][j];
+         cout << myArray[i][j];
       }
 
       cout << endl;
@@ -74,50 +72,47 @@ void ArrayCreator::DetermineStartingLocations() {
 
 }
 
-int ArrayCreator::ClassicModeCalculator() {
-  /*for (int i = 0; i < rows; ++i) {
-    for (int j = 0; j < columns; ++j) {
+void ArrayCreator::ClassicModeCalculator() {
+  CentralChunk();
+}
 
-    }
-  }*/
 
+void ArrayCreator::CentralChunk() {
   for (int i = 1; i < rows - 1; ++i) {
     for (int j = 1; j < columns - 1; ++j) {
-      cout << i << " " << j << endl << myArray[i][j] << endl;
-      cout << CurrentGen[i][j] << endl;
+      numLocations = 0;
       if (myArray[i+1][j] == 'X') {
         numLocations++;
-        cout << "4 box" << endl;
       }
       if (myArray[i+1][j-1] == 'X') {
         numLocations++;
-        cout << "3 box" << endl;
       }
       if (myArray[i+1][j+1] == 'X') {
         numLocations++;
-        cout << "5 box"<< endl;
       }
       if (myArray[i][j+1] == 'X') {
         numLocations++;
-        cout << "6 box" << endl;
       }
       if (myArray[i][j-1] == 'X') {
         numLocations++;
-        cout << "2 box" << endl;
       }
       if (myArray[i-1][j] == 'X') {
         numLocations++;
-        cout << "8 box" << endl;
       }
       if (myArray[i-1][j-1] == 'X') {
         numLocations++;
-        cout << "1 box" << endl;
       }
       if (myArray[i-1][j+1] == 'X') {
         numLocations++;
-        cout << "7 box" << endl;
       }
+      CurrentGen[i][j] = numLocations;
     }
   }
-  return numLocations;
+  for (int i = 0; i < rows; i++)
+  {
+      for (int j = 0; j < columns; j++) {
+         cout << CurrentGen[i][j];
+      }
+      cout << endl;
+  }
 }

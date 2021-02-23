@@ -12,7 +12,7 @@ class ArrayCreator {
     ArrayCreator(int rows, int columns);
     ~ArrayCreator();
     void DetermineStartingLocations();
-    int ClassicModeCalculator();
+    void ClassicModeCalculator();
 
   private:
     int rows;
@@ -21,6 +21,7 @@ class ArrayCreator {
     double randomNum;
     char** myArray;
     int** CurrentGen;
+    void CentralChunk();
 
 };
 
