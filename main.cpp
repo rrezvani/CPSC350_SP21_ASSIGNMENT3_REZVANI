@@ -4,6 +4,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+    srand(time(0));
     int rows, columns;
     cin >> rows;
     cin >> columns;

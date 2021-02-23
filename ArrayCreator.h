@@ -17,9 +17,11 @@ class ArrayCreator {
   private:
     int rows;
     int columns;
-    int numLocations;
+    int numLocations = 0;
     double randomNum;
     char** myArray;
+    int** CurrentGen;
+
 };
 
 #endif

@@ -31,10 +31,13 @@ ArrayCreator::ArrayCreator(int rows, int columns) {
   this->columns = columns;
 
   myArray = new char*[rows];
+  CurrentGen = new int*[rows];
 
   // dynamically allocate memory of size N for each row
-  for (int i = 0; i < rows; i++)
+  for (int i = 0; i < rows; i++) {
       myArray[i] = new char[columns];
+      CurrentGen[i] = new int[columns];
+    }
           // print the 2D array
 
 }
@@ -47,61 +50,74 @@ ArrayCreator::~ArrayCreator() {
 }
 
 void ArrayCreator::DetermineStartingLocations() {
-  srand(time(0));
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < columns; ++j) {
       randomNum = ((double) rand() / (RAND_MAX));
-      cout << randomNum << endl;
       if (randomNum > 0.75) {
         myArray[i][j] = 'X';
       }
       else {
         myArray[i][j] = '-';
       }
+      CurrentGen[i][j] = j;
     }
   }
   for (int i = 0; i < rows; i++)
   {
-      for (int j = 0; j < columns; j++)
-          cout << myArray[i][j] << " ";
+      for (int j = 0; j < columns; j++) {
+        //cout << myArray[i][j] << endl;
+        cout << myArray[i][j];
+      }
 
       cout << endl;
   }
+
 }
 
 int ArrayCreator::ClassicModeCalculator() {
-  for (int i = 0; i < rows; ++i) {
-    for (int j = 0; j < columns; ++j) {
-      cout << myArray[i][j] << endl;
-    }
-  }
   /*for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < columns; ++j) {
-      if (myArray[i+1][j] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i+1][j-1] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i+1][j+1] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i][j+1] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i][j-1] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i-1][j] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i-1][j-1] == 'X') {
-        numLocations++;
-      }
-      else if (myArray[i-1][j+1] == 'X') {
-        numLocations++;
-      }
+
     }
   }*/
+
+  for (int i = 1; i < rows - 1; ++i) {
+    for (int j = 1; j < columns - 1; ++j) {
+      cout << i << " " << j << endl << myArray[i][j] << endl;
+      cout << CurrentGen[i][j] << endl;
+      if (myArray[i+1][j] == 'X') {
+        numLocations++;
+        cout << "4 box" << endl;
+      }
+      if (myArray[i+1][j-1] == 'X') {
+        numLocations++;
+        cout << "3 box" << endl;
+      }
+      if (myArray[i+1][j+1] == 'X') {
+        numLocations++;
+        cout << "5 box"<< endl;
+      }
+      if (myArray[i][j+1] == 'X') {
+        numLocations++;
+        cout << "6 box" << endl;
+      }
+      if (myArray[i][j-1] == 'X') {
+        numLocations++;
+        cout << "2 box" << endl;
+      }
+      if (myArray[i-1][j] == 'X') {
+        numLocations++;
+        cout << "8 box" << endl;
+      }
+      if (myArray[i-1][j-1] == 'X') {
+        numLocations++;
+        cout << "1 box" << endl;
+      }
+      if (myArray[i-1][j+1] == 'X') {
+        numLocations++;
+        cout << "7 box" << endl;
+      }
+    }
+  }
   return numLocations;
 }
