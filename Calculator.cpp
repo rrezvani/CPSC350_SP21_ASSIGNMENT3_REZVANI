@@ -1,9 +1,11 @@
 #include "Calculator.h"
 
+//Default constructor
 Calculator::Calculator() {
 
 }
 
+//Overloaded constructor to make an array of rows x columns
 Calculator::Calculator(int rows, int columns) {
   this->rows = rows;
   this->columns = columns;
@@ -16,6 +18,7 @@ Calculator::Calculator(int rows, int columns) {
   generationNumber = 0;
 }
 
+//Overloaded constructor to make copy the array in
 Calculator::Calculator(int rows, int columns, char** myArray) {
   this->rows = rows;
   this->columns = columns;
@@ -28,6 +31,7 @@ Calculator::Calculator(int rows, int columns, char** myArray) {
   generationNumber = 0;
 }
 
+//Default destructor
 Calculator::~Calculator() {
   for (int i = 0; i < rows; i++){
       delete[] newArray[i];
@@ -45,6 +49,7 @@ Calculator::~Calculator() {
   delete creatorArray;
 }
 
+//Sets random starting locations based off the population density
 void Calculator::DetermineStartingLocations(double popDense) {
   int count = 0;
   int totalCount = rows * columns;
@@ -66,6 +71,7 @@ void Calculator::DetermineStartingLocations(double popDense) {
   }
 }
 
+//Calculates the neighbors for a generation in classic mode and moves generations down
 void Calculator::ClassicModeCalculator() {
   CentralChunk();
   EdgeCalculator();
@@ -75,6 +81,7 @@ void Calculator::ClassicModeCalculator() {
   generationNumber++;
 }
 
+//Adds and averages the total neaighbors to use in the creation of the next generation
 void Calculator::IncrementTotalNeighbors() {
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < columns; ++j) {
@@ -91,6 +98,7 @@ void Calculator::IncrementTotalNeighbors() {
   }
 }
 
+//Moves the generations down to the next variables
 void Calculator::MoveGenerationsDown() {
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < columns; ++j) {
@@ -105,6 +113,7 @@ void Calculator::MoveGenerationsDown() {
   }
 }
 
+//Creates the new generations based on the total neighbor array
 void Calculator::CreateNewGeneration() {
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < columns; ++j) {
@@ -124,6 +133,7 @@ void Calculator::CreateNewGeneration() {
   }
 }
 
+//Checks to see whether the generations are dead, stable, or oscillating
 bool Calculator::isDone() {
   int stable = 0;
   int dead = 0;
@@ -159,6 +169,7 @@ bool Calculator::isDone() {
 
 }
 
+//Calculates the neighbors for the center of the grid
 void Calculator::CentralChunk() {
   for (int i = 1; i < rows - 1; ++i) {
     for (int j = 1; j < columns - 1; ++j) {
@@ -192,6 +203,7 @@ void Calculator::CentralChunk() {
   }
 }
 
+//Calculates the neighbors for the edges of the grid in classic mode
 void Calculator::EdgeCalculator() {
   currentGen[0][0] = TopLeft();
   currentGen[0][columns-1] = TopRight();
@@ -208,6 +220,7 @@ void Calculator::EdgeCalculator() {
   }
 }
 
+//Calculates the neighbors of the top left of the grid in classic mode
 int Calculator::TopLeft() {
   int topLeftNeighbors = 0;
 
@@ -226,6 +239,7 @@ int Calculator::TopLeft() {
   return topLeftNeighbors;
 }
 
+//Calculates the neighbors of the top right of the grid in classic mode
 int Calculator::TopRight() {
   int topRightNeighbors = 0;
 
@@ -244,6 +258,7 @@ int Calculator::TopRight() {
   return topRightNeighbors;
 }
 
+//Calculates the neighbors of the bottom left of the grid in classic mode
 int Calculator::BottomLeft() {
   int bottomLeftNeighbors = 0;
 
@@ -262,6 +277,7 @@ int Calculator::BottomLeft() {
   return bottomLeftNeighbors;
 }
 
+//Calculates the neighbors of the bottom right of the grid in classic mode
 int Calculator::BottomRight() {
   int bottomRightNeighbors = 0;
 
@@ -280,6 +296,7 @@ int Calculator::BottomRight() {
   return bottomRightNeighbors;
 }
 
+//Calculates the neighbors of the top row of the grid in classic mode
 int Calculator::TopRow(int j) {
   int neighborCount = 0;
   if (newArray[0][j-1] == 'X') {
@@ -300,6 +317,7 @@ int Calculator::TopRow(int j) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the bottom row of the grid in classic mode
 int Calculator::BottomRow(int j) {
   int neighborCount = 0;
   if (newArray[rows-1][j-1] == 'X') {
@@ -320,6 +338,7 @@ int Calculator::BottomRow(int j) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the left side of the grid in classic mode
 int Calculator::LeftSide(int i) {
   int neighborCount = 0;
   if (newArray[i-1][0] == 'X') {
@@ -340,6 +359,7 @@ int Calculator::LeftSide(int i) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the right side of the grid in classic mode
 int Calculator::RightSide(int i) {
   int neighborCount = 0;
   if (newArray[i-1][columns-1] == 'X') {
@@ -360,6 +380,7 @@ int Calculator::RightSide(int i) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the grid in mirror mode
 void Calculator::MirrorModeCalculator() {
   CentralChunk();
   M_EdgeCalculator();
@@ -369,6 +390,7 @@ void Calculator::MirrorModeCalculator() {
   generationNumber++;
 }
 
+//Calculates the neighbors of the edge of the grid in mirror mode
 void Calculator::M_EdgeCalculator() {
   currentGen[0][0] = M_TopLeft();
   currentGen[0][columns-1] = M_TopRight();
@@ -385,6 +407,7 @@ void Calculator::M_EdgeCalculator() {
   }
 }
 
+//Calculates the neighbors of the top left of the grid in mirror mode
 int Calculator::M_TopLeft() {
   int topLeftNeighbors = 0;
 
@@ -406,6 +429,7 @@ int Calculator::M_TopLeft() {
   return topLeftNeighbors;
 }
 
+//Calculates the neighbors of the top right of the grid in mirror mode
 int Calculator::M_TopRight() {
   int topRightNeighbors = 0;
 
@@ -427,7 +451,7 @@ int Calculator::M_TopRight() {
   return topRightNeighbors;
 }
 
-
+//Calculates the neighbors of the bottom left of the grid in mirror mode
 int Calculator::M_BottomLeft() {
   int bottomLeftNeighbors = 0;
 
@@ -449,6 +473,7 @@ int Calculator::M_BottomLeft() {
   return bottomLeftNeighbors;
 }
 
+//Calculates the neighbors of the bottom right of the grid in mirror mode
 int Calculator::M_BottomRight() {
   int bottomRightNeighbors = 0;
 
@@ -470,6 +495,7 @@ int Calculator::M_BottomRight() {
   return bottomRightNeighbors;
 }
 
+//Calculates the neighbors of the top row of the grid in mirror mode
 int Calculator::M_TopRow(int j) {
   int neighborCount = 0;
 
@@ -494,6 +520,7 @@ int Calculator::M_TopRow(int j) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the bottom row of the grid in mirror mode
 int Calculator::M_BottomRow(int j) {
   int neighborCount = 0;
 
@@ -518,6 +545,7 @@ int Calculator::M_BottomRow(int j) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the left side of the grid in mirror mode
 int Calculator::M_LeftSide(int i) {
   int neighborCount = 0;
   if (newArray[i][0] == 'X') {
@@ -541,6 +569,7 @@ int Calculator::M_LeftSide(int i) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the right side of the grid in mirror mode
 int Calculator::M_RightSide(int i) {
   int neighborCount = 0;
 
@@ -565,10 +594,12 @@ int Calculator::M_RightSide(int i) {
   return neighborCount;
 }
 
+//Gets the random numbers to generate the locations
 int Calculator::GetNumbers(int maxNum) {
   return abs(rand() %  maxNum - 1);
 }
 
+//Calculates the neighbors of the grid in doughnut mode
 void Calculator::DoughnutModeCalculator() {
   CentralChunk();
   D_EdgeCalculator();
@@ -578,6 +609,7 @@ void Calculator::DoughnutModeCalculator() {
   generationNumber++;
 }
 
+//Calculates the neighbors of the edge of the grid in doughnut mode
 void Calculator::D_EdgeCalculator() {
   currentGen[0][0] = D_TopLeft();
   currentGen[0][columns-1] = D_TopRight();
@@ -594,6 +626,7 @@ void Calculator::D_EdgeCalculator() {
   }
 }
 
+//Calculates the neighbors of the top left of the grid in doughnut mode
 int Calculator::D_TopLeft() {
   int topLeftNeighbors = 0;
 
@@ -627,6 +660,7 @@ int Calculator::D_TopLeft() {
   return topLeftNeighbors;
 }
 
+//Calculates the neighbors of the top right of the grid in doughnut mode
 int Calculator::D_TopRight() {
   int topRightNeighbors = 0;
 
@@ -660,6 +694,7 @@ int Calculator::D_TopRight() {
   return topRightNeighbors;
 }
 
+//Calculates the neighbors of the bottom left of the grid in doughnut mode
 int Calculator::D_BottomLeft() {
   int bottomLeftNeighbors = 0;
 
@@ -693,6 +728,7 @@ int Calculator::D_BottomLeft() {
   return bottomLeftNeighbors;
 }
 
+//Calculates the neighbors of the bottom right of the grid in doughnut mode
 int Calculator::D_BottomRight() {
   int bottomRightNeighbors = 0;
 
@@ -726,6 +762,7 @@ int Calculator::D_BottomRight() {
   return bottomRightNeighbors;
 }
 
+//Calculates the neighbors of the top row of the grid in doughnut mode
 int Calculator::D_TopRow(int j) {
   int neighborCount = 0;
 
@@ -756,6 +793,7 @@ int Calculator::D_TopRow(int j) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the bottom row of the grid in doughnut mode
 int Calculator::D_BottomRow(int j) {
   int neighborCount = 0;
 
@@ -786,6 +824,7 @@ int Calculator::D_BottomRow(int j) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the left side of the grid in doughnut mode
 int Calculator::D_LeftSide(int i) {
   int neighborCount = 0;
 
@@ -816,6 +855,7 @@ int Calculator::D_LeftSide(int i) {
   return neighborCount;
 }
 
+//Calculates the neighbors of the right sides of the grid in doughnut mode
 int Calculator::D_RightSide(int i) {
   int neighborCount = 0;
 
@@ -846,6 +886,7 @@ int Calculator::D_RightSide(int i) {
   return neighborCount;
 }
 
+//Prints the grids and generations numbers to the console
 void Calculator::PrintToConsole() {
   cout << "Generation number: " << generationNumber << endl;
   for (int i = 0; i < rows; ++i) {
@@ -857,14 +898,17 @@ void Calculator::PrintToConsole() {
   cout << endl;
 }
 
+//Opens the output file streams
 void Calculator::OpenOut(string fileOutput) {
   outFS.open(fileOutput, fstream::app);
 }
 
+//Returns the grid array
 char** Calculator::GetNewArray() {
   return newArray;
 }
 
+//Prints the grids and generation numbers to a file
 void Calculator::PrintToFile() {
   outFS << "Generation number: " << generationNumber << endl;
   for (int i = 0; i < rows; ++i) {
@@ -876,6 +920,7 @@ void Calculator::PrintToFile() {
   outFS << endl;
 }
 
+//Closes the output file stream
 void Calculator::CloseOut()
 {
   outFS.close();

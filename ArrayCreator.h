@@ -1,4 +1,4 @@
-#ifndef ARRAY_CREATOR_H
+#ifndef ARRAY_CREATOR_H //header guard
 #define ARRAY_CREATOR_H
 
 #include <iostream>
@@ -7,22 +7,21 @@ using namespace std;
 
 class ArrayCreator {
   public:
-    ArrayCreator();
-    ArrayCreator(int rows, int columns);
-    ~ArrayCreator();
-    void DetermineCells();
+    ArrayCreator(); //default constructor
+    ArrayCreator(int rows, int columns); //overload constructor
+    ~ArrayCreator(); //destructor
     char** GetArray();
     int** GetNumbers();
-    double** GetDouble();
+    double** GetDouble(); //methods that are explained in the .cpp files
 
   private:
     int rows;
     int columns;
-    int GetRows();
-    int GetColumns();
     char** myArray;
     double** doubleArray;
-    int** myCurrentGen;
+    int** myCurrentGen; //private variables and methods that will never be called outside the class
+    int GetRows();
+    int GetColumns();
 
 };
 

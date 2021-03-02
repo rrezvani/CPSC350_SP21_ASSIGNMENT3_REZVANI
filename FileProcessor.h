@@ -17,12 +17,12 @@ class FileProcessor
     int GetColumns(string inputFile);
 
   private:
-    ifstream inFS;
-    ofstream outFS; 
+    ifstream inFS; //input file stream
+    ofstream outFS; //output file stream
     string fileSentence;
     string rowsHolder;
-    int rows;
     string columnsHolder;
+    int rows;
     int columns;
     char** fileArray;
 
