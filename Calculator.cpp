@@ -152,15 +152,12 @@ bool Calculator::isDone() {
     }
   }
   if (dead == 0) {
-    cout << "dead" << endl;
     return true;
   }
   else if (stable == 0) {
-    cout << "stable" << endl;
     return true;
   }
   else if (oscillation == 0) {
-    cout << "oscillating" << endl;
     return true;
   }
   else {

@@ -51,6 +51,7 @@ void Simulation::PrintInfo(){
     calculator = new Calculator(rows, columns, simArray); //creating a calculator instance using the 2d array the user gave us
     calculator->OpenOut(fileOutput); //method to open the output file
 
+
     cout << "Please enter what mode you would like to run (classic, mirror, doughnut): ";
     cin >> userResponse;
 
@@ -110,18 +111,14 @@ void Simulation::ConsoleModeDeterminer() {
 
 void Simulation::FileModeDeterminer() {
   if (userResponse == "classic") {
-    calculator->PrintToFile(); //printing the base generation to a file first
-    sleep(sleepTime);
+    calculator->PrintToFile();
     calculator->ClassicModeCalculator(); //running one loop of our classic mode
     calculator->PrintToFile();
-    sleep(sleepTime);
     calculator->ClassicModeCalculator(); //running again
     calculator->PrintToFile();
-    sleep(sleepTime);
     while (!calculator->isDone()){
       calculator->ClassicModeCalculator(); //running until it stabilizes or oscillates
       calculator->PrintToFile();
-      sleep(sleepTime);
     }
   }
   else if (userResponse == "mirror") {
@@ -148,7 +145,7 @@ void Simulation::FileModeDeterminer() {
     calculator->DoughnutModeCalculator(); //running again
     calculator->PrintToFile();
     sleep(sleepTime);
-    while (!calculator->isDone()){
+    while (!calculator->isDone()) {
       calculator->DoughnutModeCalculator(); //running until it stabilizes or oscillates
       calculator->PrintToFile();
       sleep(sleepTime);
