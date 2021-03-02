@@ -1,118 +1,70 @@
 #include "ArrayCreator.h"
-#include "Simulation.h"
 
 ArrayCreator::ArrayCreator() {
   rows = 1;
   columns = 1;
 
-  myArray = new char*[rows];
-
-  // dynamically allocate memory of size N for each row
-  for (int i = 0; i < rows; i++)
-      myArray[i] = new char[columns];
-
-  // assign values to allocated memory
-  for (int i = 0; i < rows; i++)
-      for (int j = 0; j < columns; j++)
-          myArray[i][j] = 'x';
-
-          // print the 2D array
-  for (int i = 0; i < rows; i++)
-  {
-      for (int j = 0; j < columns; j++)
-          std::cout << myArray[i][j] << " ";
-
-      std::cout << std::endl;
-  }
 }
 
 ArrayCreator::ArrayCreator(int rows, int columns) {
   this->rows = rows;
   this->columns = columns;
-
-  myArray = new char*[rows];
-  CurrentGen = new int*[rows];
-
-  // dynamically allocate memory of size N for each row
-  for (int i = 0; i < rows; i++) {
-      myArray[i] = new char[columns];
-      CurrentGen[i] = new int[columns];
-    }
-          // print the 2D array
-
 }
 
 ArrayCreator::~ArrayCreator() {
-  for (int i = 0; i < rows; i++)
+  for (int i = 0; i < rows; i++){
       delete[] myArray[i];
-
+      delete[] doubleArray[i];
+      delete[] myCurrentGen[i];
+    }
   delete[] myArray;
+  delete[] doubleArray;
+  delete[] myCurrentGen;
 }
 
-void ArrayCreator::DetermineStartingLocations() {
+int ArrayCreator::GetRows() {
+  return rows;
+}
+
+int ArrayCreator::GetColumns() {
+  return columns;
+}
+
+char** ArrayCreator::GetArray() {
+  myArray = new char*[rows];
+  for (int i = 0; i < rows; ++i) {
+      myArray[i] = new char[columns];
+  }
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < columns; ++j) {
-      randomNum = ((double) rand() / (RAND_MAX));
-      if (randomNum > 0.75) {
-        myArray[i][j] = 'X';
-      }
-      else {
-        myArray[i][j] = '-';
-      }
+      myArray[i][j] = '-';
     }
   }
-  for (int i = 0; i < rows; i++)
-  {
-      for (int j = 0; j < columns; j++) {
-         cout << myArray[i][j];
-      }
+  return myArray;
+}
 
-      cout << endl;
+double** ArrayCreator::GetDouble() {
+  doubleArray = new double*[rows];
+  for (int i = 0; i < rows; ++i) {
+    doubleArray[i] = new double[columns];
   }
-
-}
-
-void ArrayCreator::ClassicModeCalculator() {
-  CentralChunk();
-}
-
-
-void ArrayCreator::CentralChunk() {
-  for (int i = 1; i < rows - 1; ++i) {
-    for (int j = 1; j < columns - 1; ++j) {
-      numLocations = 0;
-      if (myArray[i+1][j] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i+1][j-1] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i+1][j+1] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i][j+1] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i][j-1] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i-1][j] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i-1][j-1] == 'X') {
-        numLocations++;
-      }
-      if (myArray[i-1][j+1] == 'X') {
-        numLocations++;
-      }
-      CurrentGen[i][j] = numLocations;
+  for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < columns; ++j) {
+      doubleArray[i][j] = 0;
     }
   }
-  for (int i = 0; i < rows; i++)
-  {
-      for (int j = 0; j < columns; j++) {
-         cout << CurrentGen[i][j];
-      }
-      cout << endl;
+  return doubleArray;
+}
+
+int** ArrayCreator::GetNumbers() {
+  myCurrentGen = new int*[rows];
+  for (int i = 0; i < rows; ++i) {
+      myCurrentGen[i] = new int[columns];
   }
+  for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < columns; ++j) {
+      myCurrentGen[i][j] = 0;
+    }
+  }
+  return myCurrentGen;
 }

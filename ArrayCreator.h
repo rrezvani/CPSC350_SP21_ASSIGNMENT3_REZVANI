@@ -2,7 +2,6 @@
 #define ARRAY_CREATOR_H
 
 #include <iostream>
-#include "Simulation.h"
 
 using namespace std;
 
@@ -11,17 +10,19 @@ class ArrayCreator {
     ArrayCreator();
     ArrayCreator(int rows, int columns);
     ~ArrayCreator();
-    void DetermineStartingLocations();
-    void ClassicModeCalculator();
+    void DetermineCells();
+    char** GetArray();
+    int** GetNumbers();
+    double** GetDouble();
 
   private:
     int rows;
     int columns;
-    int numLocations = 0;
-    double randomNum;
+    int GetRows();
+    int GetColumns();
     char** myArray;
-    int** CurrentGen;
-    void CentralChunk();
+    double** doubleArray;
+    int** myCurrentGen;
 
 };
 
